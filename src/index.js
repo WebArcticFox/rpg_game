@@ -49,6 +49,9 @@ function keyDownHandler(e) {
     default:
       break;
   }
+  if(Object.values(buttonPressed).some(value => value===true)){
+    e.preventDefault();
+  }
 }
 
 function keyUpHandler(e) {
