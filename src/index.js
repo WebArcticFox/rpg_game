@@ -135,11 +135,11 @@ img.addEventListener('load', () => {
     ctx.fillStyle = '#719200';
     ctx.fillRect(0, 0, 600, 600);
     ctx.stroke();
-    ctx.strokeStyle = '#fff';
-    for (let i = 0; i < 600; i += 20) {
-      for (let j = 0; j < 600; j += 20) {
+    ctx.strokeStyle = '#7FFF00';
+    for (let i = 0; i < 600; i += 70) {
+      for (let j = 0; j < 600; j += 70) {
         ctx.moveTo(i, j);
-        ctx.quadraticCurveTo(i - 20, j - 20, i, j - 5);
+        ctx.quadraticCurveTo(i-50, j - 50, i, j+25);
       }
     }
     ctx.stroke();
