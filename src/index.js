@@ -9,7 +9,6 @@ const spriteH = 48;
 const shots = 3;
 let position = 0;
 let cycle = 0;
-let needDraw = true;
 
 const buttonPressed = {
   bottom: false,
@@ -22,7 +21,6 @@ let pY = 300 - spriteW / 2;
 let pX = 300 - spriteH / 2;
 
 function keyDownHandler(e) {
-  needDraw = true;
   switch (e.key) {
     case 'Down':
       buttonPressed.bottom = true;
@@ -54,7 +52,6 @@ function keyDownHandler(e) {
 }
 
 function keyUpHandler(e) {
-  needDraw = false;
   switch (e.key) {
     case 'Down':
       buttonPressed.bottom = false;
@@ -91,66 +88,61 @@ document.addEventListener('keyup', keyUpHandler);
 const img = document.createElement('img');
 img.src = MyUser;
 
+ctx.strokeStyle = '#7FFF00';
+for (let i = 0; i < 600; i += 20) {
+  for (let j = 0; j < 600; j += 20) {
+    ctx.moveTo(i - 4, j - 4);
+    ctx.quadraticCurveTo(i, j, i + 6, j + 3);
+  }
+}
+
 img.addEventListener('load', () => {
   setInterval(() => {
-    if (needDraw) {
-      // Проверяем нажата сейчас кнопка вообще или нет
-      // смысл рисовать если персоонаж стоит на месте (или уже отрисованно)
-      switch (true) {
-        case buttonPressed.bottom:
-          position = 0;
-          if (pY + 50 >= 600) {
-            pY = 550;
-          } else {
-            pY += 10;
-          }
-          cycle = (cycle + 1) % shots;
-          break;
-        case buttonPressed.top:
-          position = spriteW * 3;
-          if (pY <= 0) {
-            pY = 0;
-          } else {
-            pY -= 10;
-          }
-          cycle = (cycle + 1) % shots;
-          break;
-        case buttonPressed.left:
-          position = spriteW;
-          if (pX <= 0) {
-            pX = 0;
-          } else {
-            pX -= 10;
-          }
-          cycle = (cycle + 1) % shots;
-          break;
-        case buttonPressed.right:
-          position = spriteW * 2;
-          if (pX + 50 >= 600) {
-            pX = 550;
-          } else {
-            pX += 10;
-          }
-          cycle = (cycle + 1) % shots;
-          break;
-        default:
-          break;
-      }
-      ctx.clearRect(0, 0, 600, 600);
-
-      ctx.fillStyle = '#719200';
-      ctx.fillRect(0, 0, 600, 600);
-      ctx.strokeStyle = '#7FFF00';
-      for (let i = 0; i < 600; i += 20) {
-        for (let j = 0; j < 600; j += 20) {
-          ctx.moveTo(i - 4, j - 4);
-          ctx.quadraticCurveTo(i, j, i + 6, j + 3);
+    switch (true) {
+      case buttonPressed.bottom:
+        position = 0;
+        if (pY + 50 >= 600) {
+          pY = 550;
+        } else {
+          pY += 10;
         }
-      }
-      ctx.stroke();
-
-      ctx.drawImage(img, cycle * spriteW, position, spriteW, spriteH, pX, pY, 48, 48);
-      needDraw = false;
+        cycle = (cycle + 1) % shots;
+        break;
+      case buttonPressed.top:
+        position = spriteW * 3;
+        if (pY <= 0) {
+          pY = 0;
+        } else {
+          pY -= 10;
+        }
+        cycle = (cycle + 1) % shots;
+        break;
+      case buttonPressed.left:
+        position = spriteW;
+        if (pX <= 0) {
+          pX = 0;
+        } else {
+          pX -= 10;
+        }
+        cycle = (cycle + 1) % shots;
+        break;
+      case buttonPressed.right:
+        position = spriteW * 2;
+        if (pX + 50 >= 600) {
+          pX = 550;
+        } else {
+          pX += 10;
+        }
+        cycle = (cycle + 1) % shots;
+        break;
+      default:
+        break;
     }
+    ctx.clearRect(0, 0, 600, 600);
+
+    ctx.fillStyle = '#719200';
+    ctx.fillRect(0, 0, 600, 600);
+    ctx.stroke();
+    ctx.drawImage(img, cycle * spriteW, position, spriteW, spriteH, pX, pY, 48, 48);
   }, 120);
 });
