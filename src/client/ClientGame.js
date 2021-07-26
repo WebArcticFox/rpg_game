@@ -33,7 +33,7 @@ class ClientGame {
   initEngine() {
     this.engine.loadSprites(sprites).then((_, time) => {
       this.map.init();
-      this.engine.on('render', () => {
+      this.engine.on('render', (_, time) => {
         this.map.render(time);
       });
       this.engine.start();
