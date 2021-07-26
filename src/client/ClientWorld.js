@@ -29,7 +29,6 @@ class ClientWorld extends PositionedObject {
         if (!map[row]) {
           map[row] = [];
         }
-
         map[row][col] = new ClientCell({
           world: this,
           cellCol: col,
