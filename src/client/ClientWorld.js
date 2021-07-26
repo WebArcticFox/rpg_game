@@ -28,13 +28,13 @@ class ClientWorld extends PositionedObject {
       for (let col = 0; col < worldWidth; col += 1) {
         if (!map[row]) {
           map[row] = [];
-          map[row][col] = new ClientCell({
-            world: this,
-            cellColl: col,
-            cellRow: row,
-            cellCfg: levelCfg.map[row][col],
-          });
         }
+        map[row][col] = new ClientCell({
+          world: this,
+          cellCol: col,
+          cellRow: row,
+          cellCfg: levelCfg.map[row][col],
+        });
       }
     }
   }
