@@ -1,5 +1,5 @@
 import MovableObject from '../common/MovableObject';
-import {animateEx} from "../common/util";
+import { animateEx } from '../common/util';
 
 class ClientGameObject extends MovableObject {
   constructor(cfg) {
@@ -42,8 +42,8 @@ class ClientGameObject extends MovableObject {
   moveToCellCoord(dcol, drow, conditionCallback = null) {
     const { world } = this;
     const newCell = world.cellAt(dcol, drow);
-    const canMovie = !conditionCallback || conditionCallback(newCell)
-    if (canMovie){
+    const canMovie = !conditionCallback || conditionCallback(newCell);
+    if (canMovie) {
       this.setCell(newCell);
     }
     return canMovie;
@@ -55,7 +55,7 @@ class ClientGameObject extends MovableObject {
       this.cell = newCell;
       newCell.addGameObject(this);
 
-      this.moveTo(newCell.x, newCell.y, true, 200);
+      this.moveTo(newCell.x, newCell.y, false, 1000);
 
       // const { x, y, width, height } = newCell;
       // Object.assign(this, { x, y, width, height });
@@ -65,7 +65,7 @@ class ClientGameObject extends MovableObject {
   setState(state) {
     this.state = state;
 
-    if(this.world){
+    if (this.world) {
       this.animationStartTime = this.world.engine.lastRenderTime;
     }
   }
@@ -74,7 +74,7 @@ class ClientGameObject extends MovableObject {
     const state = this.spriteCfg.states[this.state];
     const lengthFrame = state.frames.length;
     const animate = animateEx(lengthFrame, this.animationStartTime, time, state.duration, true);
-    const frame = (lengthFrame + animate.offset | 0) % lengthFrame;
+    const frame = ((lengthFrame + animate.offset) | 0) % lengthFrame;
 
     return state.frames[frame];
   }
@@ -87,7 +87,7 @@ class ClientGameObject extends MovableObject {
 
     const { sprite, frame, states, type } = this.spriteCfg;
 
-    const spriteFrame = type === 'static' ? frame: this.getCurrentFrame(time);
+    const spriteFrame = type === 'static' ? frame : this.getCurrentFrame(time);
 
     engine.renderSpriteFrame({ sprite, frame: spriteFrame, x, y, w: width, h: height });
   }

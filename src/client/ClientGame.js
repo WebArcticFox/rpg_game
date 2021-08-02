@@ -46,12 +46,12 @@ class ClientGame {
     });
   }
 
-  initKeys(){
+  initKeys() {
     this.engine.input.onKey({
       ArrowLeft: (keydown) => keydown && this.movePlayerToDir('left'),
       ArrowUp: (keydown) => keydown && this.movePlayerToDir('up'),
       ArrowRight: (keydown) => keydown && this.movePlayerToDir('right'),
-      ArrowDown: (keydown) => keydown && this.movePlayerToDir('down')
+      ArrowDown: (keydown) => keydown && this.movePlayerToDir('down'),
     });
   }
 
@@ -65,11 +65,11 @@ class ClientGame {
 
     const { player } = this;
 
-    if(player && player.motionProgress === 1) {
+    if (player && player.motionProgress === 1) {
       const canMovie = player.moveByCellCoord(dirs[dir][0], dirs[dir][1], (cell) => {
         return cell.findObjectsByType('grass').length;
       });
-      if(canMovie) {
+      if (canMovie) {
         player.setState(dir);
         player.once('motion-stopped', () => player.setState('static'));
       }

@@ -1,4 +1,4 @@
-import {animateEx, clamp} from './util';
+import { animateEx, clamp } from './util';
 import PositionedObject from './PositionedObject';
 
 class MovableObject extends PositionedObject {
@@ -66,7 +66,7 @@ class MovableObject extends PositionedObject {
       }
     }
 
-    if(smooth) {
+    if (smooth) {
       this.startMotion(newX, newY, speed);
     } else {
       this.x = newX;
@@ -83,7 +83,7 @@ class MovableObject extends PositionedObject {
         toY: newY,
         deltaX: newX - this.x,
         deltaY: newY - this.y,
-      })
+      });
     }
   }
 }
